@@ -108,6 +108,7 @@ export const StickyNotes = () => {
 
     	<div>
       	<textarea
+          placeholder="Note Content"
           style={{ backgroundColor: contentBGColor }}
           onFocus={() => setContentBGColor('#e0f7fa')}
           onBlur={() => setContentBGColor('')}
