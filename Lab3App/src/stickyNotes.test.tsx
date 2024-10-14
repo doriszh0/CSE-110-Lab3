@@ -94,20 +94,26 @@ test("reads properly notes 1 and 2", () => {
     expect(note2Content[0]).toBeInTheDocument();
 })
 
+test("test update", () => {
+  render(<StickyNotes />);
+
+  
+})
+
 test("test delete", () => {
     render(<StickyNotes />);
 
-    // const deleteNote = screen.getByText("x");
+    const noteText = screen.getAllByText("test note 1 title");
 
-    // fireEvent.click(deleteNote)
+    const deleteNote = screen.getAllByText("x");
 
+    fireEvent.click(deleteNote[0])
 
-    // //test if gone
-    // const noteText = screen.getAllByText("test note 1 title");
-    // if (noteText.length == 0) {
-    //     fail();
-    // }
-    // expect(noteText[0]).not.toBeInTheDocument();
+    //test if gone
+    if (noteText.length == 0) {
+        fail();
+    }
+    expect(noteText[0]).not.toBeInTheDocument();
 })
 
 
