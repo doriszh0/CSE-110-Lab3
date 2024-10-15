@@ -95,15 +95,47 @@ test("reads properly notes 1 and 2", () => {
 })
 
 test("test update", () => {
-  render(<StickyNotes />);
+    render(<StickyNotes />);
+    const noteText = screen.getAllByText("test note 1 title");
 
-  
+    if (noteText.length == 0) {
+        fail();
+    }
+
+    fireEvent.focus(noteText[0]);
+    fireEvent.change(noteText[0], { target: { textContent: "hi" } });
+
+    expect(noteText[0].innerHTML).toEqual("hi");
+
+    const noteContent = screen.getAllByText("test note 1 content");
+
+    if (noteContent.length == 0) {
+        fail();
+    }
+    
+    fireEvent.focus(noteContent[0]);
+    fireEvent.change(noteContent[0], { target: { textContent: "new content" } });
+
+    expect(noteContent[0].innerHTML).toEqual("new content");
+
+    const noteLabel = screen.getAllByText("other");
+
+    if (noteLabel.length == 0) {
+      fail();
+    }
+
+    fireEvent.focus(noteLabel[0]);
+    fireEvent.change(noteLabel[0], { target: { textContent: "personal" } });
+
+    expect(noteLabel[0].innerHTML).toEqual("personal");
+
 })
 
 test("test delete", () => {
     render(<StickyNotes />);
 
     const noteText = screen.getAllByText("test note 1 title");
+    const note2Text = screen.getAllByText("test note 2 title");
 
     const deleteNote = screen.getAllByText("x");
 
@@ -114,24 +146,15 @@ test("test delete", () => {
         fail();
     }
     expect(noteText[0]).not.toBeInTheDocument();
-})
 
+    fireEvent.click(deleteNote[1])
+
+    if (note2Text.length == 0) {
+        fail();
+    }
+    expect(note2Text[0]).not.toBeInTheDocument();
+})
 
 // test("tests update", () => {
 //     fireEvent.click
 // })
-
-// test("reads properly note 2", () => {
-//     render(<StickyNotes />);
-//     const noteText = screen.getByText("test note 2 title");
-//     expect(noteText).toBeInTheDocument();
-
-//     const noteLabel = screen.getByText("personal");
-//     expect(noteLabel).toBeInTheDocument();
-
-//     const noteContent = screen.getByText("test note 2 content");
-//     expect(noteContent).toBeInTheDocument();
-// })
-
-
-// test("delete")
