@@ -30,6 +30,11 @@ test("test banana checkbox", () => {
 
     expect(checkbox).toBeChecked();
     expect(countAfter).toBeInTheDocument();
+
+    fireEvent.click(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+    expect(countBefore).toBeInTheDocument();
 });
 
 test("test apple checkbox", () => {
@@ -48,9 +53,12 @@ test("test apple checkbox", () => {
 
     expect(checkbox).toBeChecked();
     expect(countAfter).toBeInTheDocument();
+
+    fireEvent.click(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+    expect(countBefore).toBeInTheDocument();
 });
-
-
 
 
 //OLD TEST
