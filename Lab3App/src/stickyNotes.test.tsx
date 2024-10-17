@@ -154,7 +154,3 @@ test("test delete", () => {
     }
     expect(note2Text[0]).not.toBeInTheDocument();
 })
-
-// test("tests update", () => {
-//     fireEvent.click
-// })

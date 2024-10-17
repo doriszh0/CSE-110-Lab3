@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
+
 test("renders Create Note", () => {
   render(
     <BrowserRouter>
@@ -12,3 +13,5 @@ test("renders Create Note", () => {
   const createNoteElement = screen.getByText(/Create Note/i);
   expect(createNoteElement).toBeInTheDocument();
 });
+
+
