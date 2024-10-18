@@ -13,57 +13,60 @@ test("test Read", () => {
     expect(count).toBeInTheDocument();
 });
 
+
 //CHECKBOX BY NAME
-test("test banana checkbox", () => {
-    render(<ToDoList/>);
+describe("test both checkboxes individually", () => {
+    const cases = [{item: "Bananas"}, {item: "Apples"}];
 
-    //get banana checkbox
-    const checkbox = screen.getByTestId("Bananas");
-    const countBefore = screen.getByText("Items bought: 0");
+    test.each(cases)("checkbox each individually",({item}) => {
+        render(<ToDoList/>);
 
-    expect(checkbox).not.toBeChecked();
-    expect(countBefore).toBeInTheDocument();
-    
-    fireEvent.click(checkbox);
+        const checkboxBefore = screen.getByTestId(item);
+        const countBefore = screen.getByText("Items bought: 0");
 
-    const countAfter = screen.getByText("Items bought: 1");
+        expect(checkboxBefore).not.toBeChecked();
+        expect(countBefore).toBeInTheDocument();
+        
+        fireEvent.click(checkboxBefore);
 
-    expect(checkbox).toBeChecked();
-    expect(countAfter).toBeInTheDocument();
-});
+        const checkboxAfter = screen.getByTestId(item);
+        const countAfter = screen.getByText("Items bought: 1");
 
-test("test apple checkbox", () => {
-    render(<ToDoList/>);
-
-    //get apple checkbox
-    const checkbox = screen.getByTestId("Apples");
-    const countBefore = screen.getByText("Items bought: 0");
-
-    expect(checkbox).not.toBeChecked();
-    expect(countBefore).toBeInTheDocument();
-    
-    fireEvent.click(checkbox);
-
-    const countAfter = screen.getByText("Items bought: 1");
-
-    expect(checkbox).toBeChecked();
-    expect(countAfter).toBeInTheDocument();
+        expect(checkboxAfter).toBeChecked();
+        expect(countAfter).toBeInTheDocument();
+    });
 });
 
 
+//CHECKBOX BOTH
+describe("test both checkboxes together", () => {
+    const cases = [{item1: "Bananas", item2: "Apples"}, {item1: "Apples", item2: "Bananas"}];
 
+    test.each(cases)("checkbox both bananas and apples", ({item1, item2}) => {
+        render(<ToDoList/>);
 
-//OLD TEST
-// test("test checkbox apple", () => {
-//     render(<ToDoList/>);
+        const countBefore = screen.getByText("Items bought: 0");
+        expect(countBefore).toBeInTheDocument();
 
-//     //get both checkboxes
-//     const checkboxes = screen.getAllByRole("checkbox");
-//     expect(checkboxes[0]).not.toBeChecked();
-//     expect(checkboxes[1]).not.toBeChecked();
-    
-//     fireEvent.click(checkboxes[0]); //check apple
+        const checkbox1 = screen.getByTestId(item1);
+        expect(checkbox1).not.toBeChecked();
+        
+        fireEvent.click(checkbox1);
 
-//     expect(checkboxes[1]).toBeChecked(); //apple becomes second item
-//     expect(checkboxes[0]).not.toBeChecked(); //banana becomes first term
-// });
+        const checkbox1After = screen.getByTestId(item1);
+        expect(checkbox1After).toBeChecked();
+
+        const checkbox2 = screen.getByTestId(item2);
+        expect(checkbox2).not.toBeChecked();
+        
+        fireEvent.click(checkbox2);
+
+        const checkbox2After = screen.getByTestId(item2);
+        expect(checkbox2After).toBeChecked();
+
+ 
+        const countAfter = screen.getByText("Items bought: 2");
+        expect(countAfter).toBeInTheDocument();
+
+    });
+});
