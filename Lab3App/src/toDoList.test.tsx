@@ -29,6 +29,7 @@ describe("test both checkboxes individually", () => {
         
         fireEvent.click(checkboxBefore);
 
+<<<<<<< HEAD
         const checkboxAfter = screen.getByTestId(item);
         const countAfter = screen.getByText("Items bought: 1");
 
@@ -47,6 +48,44 @@ describe("test both checkboxes together", () => {
 
         const countBefore = screen.getByText("Items bought: 0");
         expect(countBefore).toBeInTheDocument();
+=======
+    expect(checkbox).toBeChecked();
+    expect(countAfter).toBeInTheDocument();
+
+    fireEvent.click(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+    expect(countBefore).toBeInTheDocument();
+});
+
+test("test apple checkbox", () => {
+    render(<ToDoList/>);
+
+    //get apple checkbox
+    const checkbox = screen.getByTestId("Apples");
+    const countBefore = screen.getByText("Items bought: 0");
+
+    expect(checkbox).not.toBeChecked();
+    expect(countBefore).toBeInTheDocument();
+    
+    fireEvent.click(checkbox);
+
+    const countAfter = screen.getByText("Items bought: 1");
+
+    expect(checkbox).toBeChecked();
+    expect(countAfter).toBeInTheDocument();
+
+    fireEvent.click(checkbox);
+
+    expect(checkbox).not.toBeChecked();
+    expect(countBefore).toBeInTheDocument();
+});
+
+
+//OLD TEST
+// test("test checkbox apple", () => {
+//     render(<ToDoList/>);
+>>>>>>> db5a715c90105aa3667944bdc72167a437de06b5
 
         const checkbox1 = screen.getByTestId(item1);
         expect(checkbox1).not.toBeChecked();

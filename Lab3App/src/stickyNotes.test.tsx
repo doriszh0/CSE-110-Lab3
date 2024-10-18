@@ -48,15 +48,6 @@ test("renders create note form", () => {
 test("reads properly notes 1 and 2", () => {
     render(<StickyNotes />);
 
-    // const noteText = screen.getByText("test note 2 title");
-    // expect(noteText).toBeInTheDocument();
-
-    // const noteLabel = screen.getByText("personal");
-    // expect(noteLabel).toBeInTheDocument();
-
-    // const noteContent = screen.getByText("test note 2 content");
-    // expect(noteContent).toBeInTheDocument();
-
     const noteText = screen.getAllByText("test note 1 title");
     if (noteText.length == 0) {
         fail();
@@ -154,3 +145,56 @@ test("test delete", () => {
     }
     expect(note2Text[0]).not.toBeInTheDocument();
 })
+
+test("test delete all", () => {
+    render(<StickyNotes />);
+
+    const note1Text = screen.getAllByText("test note 1 title");
+    const note2Text = screen.getAllByText("test note 2 title");
+    const note3Text = screen.getAllByText("test note 3 title");
+    const note4Text = screen.getAllByText("test note 4 title");
+    const note5Text = screen.getAllByText("test note 5 title");
+    const note6Text = screen.getAllByText("test note 6 title");
+
+    const deleteNote = screen.getAllByText("x");
+
+    if (deleteNote.length == 0) {
+        fail();
+    }
+    for (let i = 0; i < deleteNote.length; i++) {
+        fireEvent.click(deleteNote[i]);
+    }
+
+    expect(note1Text[0]).not.toBeInTheDocument();
+    expect(note2Text[0]).not.toBeInTheDocument();
+    expect(note3Text[0]).not.toBeInTheDocument();
+    expect(note4Text[0]).not.toBeInTheDocument();
+    expect(note5Text[0]).not.toBeInTheDocument();
+    expect(note6Text[0]).not.toBeInTheDocument();
+})
+
+test("test like", () => {
+    render(<StickyNotes />);
+
+    let noteText = screen.getAllByText("test note 1 title");
+
+    const unlikeNote = screen.getAllByText("🤍");
+
+    if (unlikeNote.length == 0) {
+        fail();
+    }
+    fireEvent.click(unlikeNote[0])
+
+
+    const likeNote = screen.getAllByText("❤️");
+    if (noteText.length == 0 || likeNote.length == 0) {
+        fail();
+    }
+    expect(likeNote[0]).toBeInTheDocument();
+
+    noteText = screen.getAllByText("test note 1 title");
+    expect(noteText.length).toEqual(2);
+
+}
+)
+
