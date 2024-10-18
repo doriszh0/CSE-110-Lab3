@@ -1,0 +1,103 @@
+stickyNotes Tests
+
+Describe "Create StickyNote":
+    Has two tests: Test "renders create note form" and Test "creates a new note"
+    - Test "renders create note form"
+        - Renders stickyNotes component
+        - Looks for the text "Create Note" and expects it to be in the document
+
+    - Test "creates a new note"
+        - Renders stickyNotes component
+        - Looks for the text "Note Title", "Note Content", and "Create Note" to
+        get the corresponding input boxes and button
+        - Enters the text "New Note" for the title and "Note content" for the
+        note content, then clicks the "Create Note" button
+        - Expects that the text that was inputted and submitted as a
+        note can be found in the document
+
+Test "reads properly notes 1 and 2":
+    - Renders stickyNotes component
+    - Looks for the text "test note 1 title", "test note 1 content", and "other"
+    and then expects them all to be in the document
+
+Test "test update":
+    - Renders stickyNotes component
+    - Looks for the text "test note 1 title", focuses on it, and changes the
+    text to "hi"
+    - Expects that the innerHTML of the found text is now equal to "hi"
+    - Looks for the text "test note 1 content", focuses on it, and changes the
+    text to "new content"
+    - Expects that the innerHTML of the found text is now equal to "new content"
+    - Looks for the text "other", focuses on it, and changes the
+    text to "personal"
+    - Expects that the innerHTML of the found text is now equal to "personal"
+
+Test "test delete":
+    - Renders stickyNotes component
+    - Looks for the text "test note 1 title" and "test note 2 title", and "x"
+    - Clicks the "x" button for the first note
+    - Expects that "test note 1 title" is not in the document
+    - Clicks the "x" button for the second note
+    - Expects that "test note 2 title" is not in the document
+
+Test "test delete all":
+    - Renders stickyNotes component
+    - Looks for the text "test note 1 title", "test note 2 title", 
+    "test note 3 title", "test note 4 title", "test note 5 title", and
+    "test note 6 title"
+    - Looks for the text "x"
+    - Clicks each "x" button found, and then expects that all of the note titles
+    found earlier are not in the document
+
+Test "test like":
+    - Renders stickyNotes component
+    - Looks for the text "test note 1 title" and "🤍" (the unliked heart)
+    - Clicks the "🤍" button
+    - Looks for the text "❤️" and expects it to be in the document"
+    - Looks for the text "test note 1 title" again and expects there to be
+    two instances found (once on the note, and once on the favorites list)
+
+
+toDoList Tests
+
+Test "test Read":
+    - Looks for the text "Apples", "Bananas", and "Items bought: 0" and
+    expects them to be in the document
+
+Describe "test both checkboxes individually":
+    - Initializes the const "cases", which is a list of two items: "Bananas"
+    and "Apples"
+    - Has two tests: Test "checkbox each individually", which then runs twice
+    in total, once for each item in "cases"
+        - First runs with "Bananas", second with "Apples"
+    - Test "checkbox each individually":
+        - Renders toDoList component
+        - Looks for the testID of the item and the text "Items bought: 0"
+        - Expects the checkbox of the item to not be checked and 
+        "Items bought: 0" to be in the document
+        - Looks for the testID of the item again and the text "Items bought: 1"
+        - Expects the checkbox of the item to be checked and 
+        "Items bought: 1" to be in the document
+
+Describe "test both checkboxes together":
+    - Initializes the const "cases", which is a list of two lists
+    - The two nested lists each consist of two items:
+        - First List: ["Bananas", "Apples"]
+        - Second List: ["Apples", "Bananas"]
+    - Has two tests: Test "checkbox both bananas and apples", which then runs twice
+    in total, once for each list in "cases"
+        - First runs with ["Bananas", "Apples"], secons with ["Apples", "Bananas"]
+    - Test "checkbox both bananas and apples":
+        - Renders toDoList component
+        - Looks for the text "Items bought: 0" and expects it to be
+        in the document
+        - Looks for the first item in the list and expects it to not be checked
+        - Clicks the checkbox of the first item in the list and
+        expects it to be checked
+        - Looks for the second item in the list and expects it to not be checked
+        - Clicks the checkbox of the second item in the list and
+        expects it to be checked
+        - Looks for the text "Items bought: 2" and expects it to be
+        in the document
+        
+

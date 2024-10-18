@@ -33,17 +33,6 @@ describe("Create StickyNote", () => {
  });
 });
 
-test("renders create note form", () => {
-    render(<StickyNotes />);
-    const createNoteButton = screen.getByText("Create Note");
-    expect(createNoteButton).toBeInTheDocument();
-});
-
-
-
-
-
-
 //EXERCISE
 test("reads properly notes 1 and 2", () => {
     render(<StickyNotes />);
